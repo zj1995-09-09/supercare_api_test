@@ -619,4 +619,20 @@ class CommonApis(Apis):
         except Exception:
             raise Exc(f"create new device Error!")
 
+    def delete_device(self, device_id):
+        """
+        删除设备
+        """
+        try:
 
+            params = {
+                "id": device_id
+            }
+
+            res = Apis().api_del_choice_asset_info(params=params)
+            assert res.status_code <= 200, "Http请求状态码错误"
+            assert json.loads(res.text)['success'] is True, "业务接口返回False"
+            assert json.loads(res.text)['data'] is True, "业务接口返回False"
+
+        except Exception as e:
+            raise e

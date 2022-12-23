@@ -18,7 +18,6 @@ def setup():
 
 @pytest.mark.bvt
 @pytest.mark.device
-@pytest.mark.temp
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_phy_get_user_manage_device_tree():
     try:
@@ -40,3 +39,11 @@ def test_phy_get_user_manage_device_tree():
 
     except Exception as e:
         raise e
+
+
+def teardown():
+    """
+    清理设备
+    """
+    global device_id
+    CommonApis().delete_device(device_id)
