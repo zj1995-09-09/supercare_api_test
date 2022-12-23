@@ -24,7 +24,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=1)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_add_factory_line(self, set_global_data, get_global_data):
@@ -70,7 +70,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=2)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_get_line_detail(self, get_global_data):
@@ -96,7 +96,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=3)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_modify_line_detail(self, get_global_data):
@@ -137,7 +137,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=4)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_copy_line(self, get_global_data):
@@ -158,7 +158,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=5)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_paste_line(self, set_global_data, get_global_data):
@@ -186,7 +186,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=100)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_delete_factory_line(self, get_global_data):
@@ -206,7 +206,7 @@ class TestLine:
             raise e
 
     @pytest.mark.bvt
-    @pytest.mark.line
+    @pytest.mark.device
     @pytest.mark.run(order=100)
     @pytest.mark.flaky(reruns=3, reruns_delay=3)
     def test_delete_copied_line(self, get_global_data):

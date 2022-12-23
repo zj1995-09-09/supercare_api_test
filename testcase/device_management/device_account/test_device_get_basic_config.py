@@ -5,6 +5,7 @@ from datetime import datetime
 
 
 @pytest.mark.bvt
+@pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_basic_config():
     try:

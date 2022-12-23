@@ -32,6 +32,7 @@ class TestDevice:
 
     @pytest.mark.bvt
     @pytest.mark.device
+    # @pytest.mark.temp
     @pytest.mark.run(order=1)
     def test_get_devices_classify(self, set_global_data, ):
         """

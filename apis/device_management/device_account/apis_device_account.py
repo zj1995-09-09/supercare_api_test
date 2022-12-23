@@ -542,7 +542,7 @@ class CommonApis(Apis):
         if len(json.loads(res.text)):
             if json.loads(res.text)[0]['attachment']['address']:
                 return json.loads(res.text)[0]['isDefault']
-        raise Exc("Device IMG Not Found!")
+        raise Exc("fun[verify_device_picture_exist] error!!!")
 
     @retry(5, 3)
     def upload_pictures(self, ) -> dict:
@@ -583,3 +583,40 @@ class CommonApis(Apis):
             "picture_name": filename,
             "picture_size": filesize
         }
+
+    def add_device(self, pid=None, device_name=None):
+        """
+        添加设备
+        """
+        try:
+            if not device_name:
+                now_data_time = datetime.now()
+                suffix = now_data_time.strftime('%H_%M_%S')
+                device_name = f"设备xxx-{suffix}"
+
+            if not pid:
+                company_name = '111'
+                pid = self.get_company_id_with_company_name(company_name)
+
+            params = {
+                "_t": datetime.now()
+            }
+
+            data = {
+                "data": {
+                    "name": device_name,
+                    "category": "NUM001",
+                    "extraProperties": {},
+                    "type": 40,
+                    "parent": pid
+                },
+                "sign": "post",
+                "AssetType": "Device"
+            }
+            res = Apis().api_crud_asset_operator(data=data, params=params)
+            device_id = json.loads(res.text)['data']['id']
+            return device_id
+        except Exception:
+            raise Exc(f"create new device Error!")
+
+

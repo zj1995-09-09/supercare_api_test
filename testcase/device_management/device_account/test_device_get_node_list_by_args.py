@@ -20,6 +20,7 @@ def setup():
 
 
 @pytest.mark.bvt
+@pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_node_list_by_args():
     try:
