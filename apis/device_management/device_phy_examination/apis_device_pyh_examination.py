@@ -15,7 +15,6 @@ class Apis(Base):
     def __init__(self):
 
         super(Apis, self).__init__()
-        self.url = "http://192.168.1.211:31000"
 
     def api_get_report_year(self, data=None, params=None, headers=None):
         """

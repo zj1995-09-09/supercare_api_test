@@ -21,7 +21,6 @@ class Apis(Base):
     def __init__(self):
 
         super(Apis, self).__init__()
-        self.url = "http://192.168.1.211:31000"
 
     def api_get_children(self, data=None, params=None, headers=None):
         '''
@@ -595,7 +594,7 @@ class CommonApis(Apis):
                 device_name = f"设备xxx-{suffix}"
 
             if not pid:
-                company_name = '111'
+                company_name = os.getenv("company_name")
                 pid = self.get_company_id_with_company_name(company_name)
 
             params = {

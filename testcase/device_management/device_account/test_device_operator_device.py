@@ -23,7 +23,7 @@ class TestDevice:
 
         try:
 
-            company_name = '111'
+            company_name = os.getenv("company_name")
             self.pid = CommonApis().get_company_id_with_company_name(company_name)
             assert self.pid is not None, "根据企业名称获取企业ID失败"
 

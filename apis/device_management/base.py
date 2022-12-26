@@ -3,6 +3,7 @@
 import json
 from common.request_module import http_request
 from common.tools import retry
+import os
 
 
 class Base(object):
@@ -14,6 +15,8 @@ class Base(object):
         self.headers_default = {}
         self.data_default = {}
         self.params_default = {}
+
+        self.url = os.getenv("api_url")
 
     @retry(5, 3)
     def apis(self, data=None, params=None, headers=None, method=None, url=None, ):
