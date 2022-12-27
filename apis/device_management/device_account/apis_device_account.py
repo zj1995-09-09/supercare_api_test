@@ -472,6 +472,64 @@ class Apis(Base):
         except Exception as e:
             raise e
 
+    def api_measure_get_measurement_group(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        try:
+            self.headers_default = {
+                "Authorization": os.getenv("cookies"),
+            }
+            self.data_default = {}
+            self.params_default = {}
+
+            url = self.url + "/api/MeasurementGroup/GetMeasurementGroup"
+            method = "get"
+            res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+            return res
+
+        except Exception as e:
+            raise e
+
+    def api_measure_get_model_templates_by_type(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        try:
+            self.headers_default = {
+                "Authorization": os.getenv("cookies"),
+            }
+            self.data_default = {}
+            self.params_default = {}
+
+            url = self.url + "/api/basicService/api/app/metaModelInstance/modelTemplatesByType"
+            method = "get"
+            res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+            return res
+
+        except Exception as e:
+            raise e
+
+    def api_measure_add_batch_asset(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        try:
+            self.headers_default = {
+                "Content-Type": "application/json",
+                "Authorization": os.getenv("cookies"),
+            }
+            self.data_default = {}
+            self.params_default = {}
+
+            url = self.url + "/api/Asset/AddBatchAsset"
+            method = "post"
+            res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+            return res
+
+        except Exception as e:
+            raise e
+
 
 class CommonApis(Apis):
     """
@@ -587,6 +645,7 @@ class CommonApis(Apis):
     def add_device(self, pid=None, device_name=None):
         """
         添加设备
+        return: device_id
         """
         try:
             if not device_name:

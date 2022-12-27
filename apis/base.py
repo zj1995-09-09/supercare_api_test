@@ -45,10 +45,11 @@ class Base(object):
             print(f"PARAMS:  {params}")
             print(f"DATA:  {data}")
             print(f"URL:  {url}")
+            print(f"HEADERS:  {headers}")
 
             res = http_request(url, method, data=data, params=params, headers=headers, )
 
-            # print(f"RESULT:  {res.text}")
+            print(f"RESULT:  {res.text}")
 
             return res
 
