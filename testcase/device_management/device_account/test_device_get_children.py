@@ -27,6 +27,9 @@ def setup():
 @pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_children1():
+    """
+    查询当前企业信息（不带参）
+    """
     try:
         res = Apis().api_get_children()
         assert res.status_code <= 200, "Http请求状态码错误"
@@ -36,8 +39,12 @@ def test_get_children1():
 
 
 @pytest.mark.bvt
+@pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_children2():
+    """
+    查询当前企业信息
+    """
     try:
         global pid
         data = {
@@ -53,8 +60,12 @@ def test_get_children2():
 
 
 @pytest.mark.bvt
+@pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_children3():
+    """
+    查询当前企业下的资产信息
+    """
     try:
         global pid
         params = {

@@ -48,7 +48,7 @@ class Base(object):
 
             res = http_request(url, method, data=data, params=params, headers=headers, )
 
-            print(f"RESULT:  {res.text}")
+            # print(f"RESULT:  {res.text}")
 
             return res
 

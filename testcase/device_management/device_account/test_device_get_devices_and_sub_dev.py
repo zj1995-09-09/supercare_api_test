@@ -26,6 +26,9 @@ def setup():
 @pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_get_devices_and_sub_dev():
+    """
+    查询资产下的设备信息
+    """
     try:
         global pid
 

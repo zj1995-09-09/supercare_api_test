@@ -44,9 +44,9 @@ class Apis(Base):
             raise e
 
     def api_crud_asset_operator(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),
@@ -70,9 +70,9 @@ class Apis(Base):
             raise e
 
     def api_get_basic_config(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),
@@ -163,9 +163,10 @@ class Apis(Base):
             raise e
 
     def api_by_asset_types(self, data=None, params=None, headers=None):
-        '''
+        """
+        获取当前系统所有设备模型
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),

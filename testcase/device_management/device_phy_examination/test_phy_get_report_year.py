@@ -1,12 +1,16 @@
 # coding:utf-8
-import json,pytest
-from apis.device_management.device_phy_examination.apis_device_pyh_examination import Apis, CommonApis
+import json
+import pytest
+from apis.device_management.device_phy_examination.apis_device_pyh_examination import Apis
 
 
 @pytest.mark.bvt
 @pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_phy_get_report_year():
+    """
+    获取已存在报告的年份
+    """
     try:
 
         res = Apis().api_get_report_year()

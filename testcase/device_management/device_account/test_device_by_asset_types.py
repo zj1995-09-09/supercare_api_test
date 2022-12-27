@@ -1,6 +1,7 @@
 # coding:utf-8
-import json,pytest
-from apis.device_management.device_account.apis_device_account import Apis, CommonApis
+import json
+import pytest
+from apis.device_management.device_account.apis_device_account import Apis
 
 
 @pytest.mark.bvt
@@ -8,6 +9,9 @@ from apis.device_management.device_account.apis_device_account import Apis, Comm
 @pytest.mark.temp
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_by_asset_types():
+    """
+    获取设备模型
+    """
     try:
 
         res = Apis().api_by_asset_types()

@@ -25,6 +25,8 @@ def set_env(request):
     os.environ["company_name"] = ev(env).env_company_name
     os.environ["ent_code"] = ev(env).env_ent_code
     os.environ["api_url"] = ev(env).env_api_url
+    os.environ["company_type"] = ev(env).env_company_type
+    os.environ["supercare_type"] = ev(env).env_supercare_type
 
 
 global_data = {}

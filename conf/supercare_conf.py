@@ -6,6 +6,8 @@ class Environment:
     _env = {
         "single211": {
             "company_name": '111',
+            "company_type": "IndustryType_GT",
+            "supercare_type": "Standard",  # Professional
             "EntCode": "SUPINTERFACE",
             "log_level": 'DEBUG',
             "kafka": '192.168.1.211:9092',
@@ -16,6 +18,8 @@ class Environment:
         },
         "single251": {
             "company_name": 'supercare251',
+            "company_type": "IndustryType_FD",
+            "supercare_type": "Standard",  # Professional
             "EntCode": "SUPERCARE251",
             "log_level": 'DEBUG',
             "kafka": '192.168.1.251:9092',
@@ -24,17 +28,18 @@ class Environment:
             "api_url": "http://192.168.1.251:31000",
             "login_url": "http://192.168.1.251:5000/connect/token"
         },
-        "cluster248": {
-            "host": '192.168.0.248',
-            "port": '9999',
-            "api_port": '31000',
-            "company_name": '110',
-            "EntCode": "SUPERCARE248SQL",
-            "log_level": 'warning',
-            "kafka": '192.168.0.248:9092',
+        "cluster138": {
+            "company_name": '138企业',
+            "company_type": '',
+            "supercare_type": "Professional",  # Standard
+            "EntCode": "Supercare138testall",
+            "log_level": 'DEBUG',
+            "kafka": '192.168.1.251:9092',
             "user": "admin",
-            "password": "1q2w3E*"
-        }
+            "password": "1q2w3E*",
+            "api_url": "http://192.168.1.138:31000",
+            "login_url": "http://192.168.1.138:9999/identityserver/connect/token"
+        },
     }
 
     def __init__(self, env):
@@ -71,3 +76,10 @@ class Environment:
     def env_api_url(self):
         return self._env[self.env]['api_url']
 
+    @property
+    def env_company_type(self):
+        return self._env[self.env]['company_type']
+
+    @property
+    def env_supercare_type(self):
+        return self._env[self.env]['supercare_type']
