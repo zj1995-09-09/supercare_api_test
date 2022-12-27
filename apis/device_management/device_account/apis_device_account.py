@@ -6,7 +6,7 @@ import random
 import string
 from datetime import datetime
 import urllib.parse
-from apis.device_management.base import Base
+from apis.base import Base
 from common.tools import get_content_type
 from common.tools import retry
 from common.define_exception import DException as Exc

@@ -3,7 +3,7 @@
 import json
 import os
 from datetime import datetime
-from apis.device_management.base import Base
+from apis.base import Base
 from common.tools import retry
 
 
