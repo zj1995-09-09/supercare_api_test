@@ -255,7 +255,7 @@ class TestDevice:
     @pytest.mark.run(order=7)
     def test_asset_picture_new(self, get_global_data, set_global_data):
         """
-        设备总览图种，绑定上传得图片与设备
+        设备总览图中，绑定上传得图片与设备
         :param get_global_data:
         :return:
         """
@@ -296,7 +296,7 @@ class TestDevice:
             }
 
             res = Apis().api_device_asset_picture_new(data=data, params=params, headers=headers)
-            assert res.status_code <= 200, "Http请求状态码错误"
+            assert res.status_code <= 200, f"设备总览图中，绑定上传得图片与设备，Http请求状态码错误:{res.status_code}"
             assert json.loads(res.text)[0]['id'], "业务接口返回错误，未返回到对应上传绑定后的guid"
             guid = json.loads(res.text)[0]['id']
             set_global_data("guid", guid)
@@ -344,6 +344,8 @@ class TestDevice:
         """
         try:
             pic_info = CommonApis().upload_pictures()
+            assert pic_info, "上传图片出错！"
+
             originalUrl = pic_info['originalUrl']
             picture_name = pic_info['picture_name']
             picture_size = pic_info['picture_size']

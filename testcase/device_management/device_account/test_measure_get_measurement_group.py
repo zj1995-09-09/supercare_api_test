@@ -21,7 +21,7 @@ def test_get_measurement_group():
 
         res = Apis().api_measure_get_measurement_group(params=params)
         assert res.status_code <= 200, "Http请求状态码错误"
-        assert json.loads(res.text)['data']['totalCount'] == 14, "预置的采集定义数量不为14"
+        assert json.loads(res.text)['data']['totalCount'] > 0, "预置的采集定义数量为零！ "
         for i in json.loads(res.text)['data']['items']:
             assert i['type'] == 90, "存在type不等于90的预置采集定义"
 

@@ -76,11 +76,19 @@ def test_add_batch_asset(set_global_data, get_global_data):
         lower_freq = 2
         upper_freq = 10
         data_length = 1024
+        wave_type = 0
+
         wave_type_dict = {
-            "Accelerated speed": "加速度",
-            "Speed": "速度"
+            0: "加速度",   # Accelerated speed
+            1: "速度",    # Speed
+            2: "位移"  # Displacement
         }
-        wave_type = "Accelerated speed"
+        wave_unit_dict = {
+            0: "Accelerated speed",
+            1: "Speed",
+            2: "Displacement"
+        }
+
         name = f"{data_length/1024}k {wave_type_dict[wave_type]}波形({lower_freq}-{upper_freq})"
 
         params = {
@@ -91,14 +99,14 @@ def test_add_batch_asset(set_global_data, get_global_data):
                 {
                     "type": 90,
                     "isDisplayable": True,
-                    "engineerUnitFamily": "Accelerated speed",
-                    "name": "1k 加速度波形(2-10)",
+                    "engineerUnitFamily": wave_unit_dict[wave_type],
+                    "name": name,
                     "parent": point_id,
                     "extraProperties": {
                         "SignalType": 0,
-                        "LowerFreq": 2,
-                        "UpperFreq": 10,
-                        "DataLength": 1024,
+                        "LowerFreq": lower_freq,
+                        "UpperFreq": upper_freq,
+                        "DataLength": data_length,
                         "SamplingMode": 0
                     }
                 }

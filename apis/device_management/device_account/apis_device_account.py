@@ -609,38 +609,42 @@ class CommonApis(Apis):
         :param:
         :return:
         """
-        randomStr = ''.join(random.sample(string.ascii_letters + string.digits, 16))
-        headers = {
-            "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=randomStr)
-        }
-        file_path = os.getcwd()
+        try:
+            randomStr = ''.join(random.sample(string.ascii_letters + string.digits, 16))
+            headers = {
+                "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=randomStr)
+            }
+            file_path = os.getcwd()
 
-        file = r"{}\files\设备图片.png".format(file_path)
-        filename = file.split("\\")[-1]
-        filesize = os.path.getsize(file)
+            file = r"{}\files\设备图片.png".format(file_path)
+            filename = file.split("\\")[-1]
+            filesize = os.path.getsize(file)
 
-        r = get_content_type(file)
+            r = get_content_type(file)
 
-        fields = MultipartEncoder(
-            fields={"formFiles": ("{}".format(filename), open(r"{}".format(file), "rb"), r)},
-            # 新接口为formFiles，老接口为：formFile
-            boundary="----WebKitFormBoundary{}".format(randomStr)
-        )
+            fields = MultipartEncoder(
+                fields={"formFiles": ("{}".format(filename), open(r"{}".format(file), "rb"), r)},
+                # 新接口为formFiles，老接口为：formFile
+                boundary="----WebKitFormBoundary{}".format(randomStr)
+            )
 
-        params = {
-            "_t": datetime.now(),
-            "groupName": "file"
-        }
+            params = {
+                "_t": datetime.now(),
+                "groupName": "file"
+            }
 
-        res = Apis().api_device_oss_upload_mulity_file(data=fields, params=params, headers=headers)
-        assert res.status_code <= 200, "Http请求状态码错误"
-        assert json.loads(res.text)[0]['data']['originalUrl'], "业务接口返回异常，未获取到上传后的存储地址信息."
-        originalUrl = json.loads(res.text)[0]['data']['originalUrl']
-        return {
-            "originalUrl": originalUrl,
-            "picture_name": filename,
-            "picture_size": filesize
-        }
+            res = Apis().api_device_oss_upload_mulity_file(data=fields, params=params, headers=headers)
+            assert res.status_code <= 200, "Http请求状态码错误"
+            assert json.loads(res.text)[0]['data']['originalUrl'], "业务接口返回异常，未获取到上传后的存储地址信息."
+            originalUrl = json.loads(res.text)[0]['data']['originalUrl']
+
+            return {
+                "originalUrl": originalUrl,
+                "picture_name": filename,
+                "picture_size": filesize
+            }
+        except Exception:
+            raise Exc(f"upload pictures Error!")
 
     def add_device(self, pid=None, device_name=None):
         """
