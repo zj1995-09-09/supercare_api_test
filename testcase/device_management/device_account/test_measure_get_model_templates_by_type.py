@@ -20,7 +20,7 @@ def test_get_model_templates_by_type():
 
         res = Apis().api_measure_get_model_templates_by_type(params=params)
         assert res.status_code <= 200, "Http请求状态码错误"
-        assert len(json.loads(res.text)['catalogs']) > 0, "采集规格为空！"
+        # assert len(json.loads(res.text)['catalogs']) > 0, "采集规格为空！"   # 存在但可能会为空，instances必须存在即可
         assert len(json.loads(res.text)['instances']) > 0, "采集规格为空！"
 
     except Exception as e:

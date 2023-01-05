@@ -28,6 +28,18 @@ class Environment:
             "api_url": "http://192.168.1.251:31000",
             "login_url": "http://192.168.1.251:5000/connect/token"
         },
+        "single199": {
+            "company_name": 'supercare14',
+            "company_type": "IndustryType_SH",
+            "supercare_type": "Standard",  # Professional
+            "EntCode": "supercare14",
+            "log_level": 'DEBUG',
+            "kafka": '192.168.1.199:9092',
+            "user": "admin",
+            "password": "1q2w3E*",
+            "api_url": "http://192.168.1.199:31000",
+            "login_url": "http://192.168.1.199:5000/connect/token"
+        },
         "cluster138": {
             "company_name": '138企业',
             "company_type": '',
