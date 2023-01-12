@@ -1,12 +1,11 @@
-#coding:utf-8
+# coding:utf-8
 from common.tools import retry
 import requests
 import urllib.parse
 
 
 @retry()
-def http_request(url,method,data=None,params=None,headers=None,):
-
+def http_request(url, method, data=None, params=None, headers=None, ):
     res = None
 
     if str(method).upper() == 'GET':
@@ -41,4 +40,3 @@ def http_request(url,method,data=None,params=None,headers=None,):
             res = requests.delete(url, headers=headers)
 
     return res
-

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Author   : qiuzixuan
 # @Time     : 2023/1/12
-# @Desc     :
+# @Desc     : 配置文件管理
 
 from dynaconf import Dynaconf
 from libs.get_path import GetPath
