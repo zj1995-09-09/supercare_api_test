@@ -1,32 +1,32 @@
 import os
 import pytest
 from common.request_module import http_request
-from conf.supercare_conf import Environment as ev
+from conf.config import settings
 
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env(request):
-    env = request.config.getoption("--env")
+    env = getattr(settings, request.config.getoption("--env"))
 
     data = {
         "grant_type": "password",
         "client_id": "epm",
         "client_secret": "secret",
-        "username": ev(env).env_user,
-        "password": ev(env).env_password
+        "username": env.user,
+        "password": env.password
     }
     headers = {
         "Content-Type": "application/x-www-form-urlencoded"
     }
 
-    res = http_request(ev(env).env_login_url, method="post", data=data, headers=headers)
+    res = http_request(env.login_url, method="post", data=data, headers=headers)
     os.environ["cookies"] = "{} {}".format(res.json()["token_type"], res.json()["access_token"])
-    os.environ["kafka"] = ev(env).env_kafka
-    os.environ["company_name"] = ev(env).env_company_name
-    os.environ["ent_code"] = ev(env).env_ent_code
-    os.environ["api_url"] = ev(env).env_api_url
-    os.environ["company_type"] = ev(env).env_company_type
-    os.environ["supercare_type"] = ev(env).env_supercare_type
+    os.environ["kafka"] = env.kafka
+    os.environ["company_name"] = env.company_name
+    os.environ["ent_code"] = env.EntCode
+    os.environ["api_url"] = env.api_url
+    os.environ["company_type"] = env.company_type
+    os.environ["supercare_type"] = env.supercare_type
 
 
 global_data = {}
@@ -59,5 +59,5 @@ def get_global_data():
 
 
 def pytest_addoption(parser):
-    parser.addoption("--env", action="store", default="single211",
+    parser.addoption("--env", action="store", default="s211",
                      help="test environment")

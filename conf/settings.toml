@@ -1,0 +1,63 @@
+dynaconf_merge = true
+[common]
+log_level='DEBUG'
+
+[s211]
+host = "192.168.1.211"
+company_name = "111"
+company_type = "IndustryType_GT"
+supercare_type = "Standard"  # Professional
+EntCode = "SUPINTERFACE"
+user = "admin"
+password = "1q2w3E*"
+kafka = "@format {this.s211.host}:9092"
+api_url = "@format http://{this.s211.host}:31000"
+login_url = "@format http://{this.s211.host}:5000/connect/token"
+
+[s251]
+host = "192.168.1.251"
+company_name = 'supercare251'
+company_type = "IndustryType_FD"
+supercare_type = "Standard"  # Professional
+EntCode = "SUPERCARE251"
+user = "admin"
+password = "1q2w3E*"
+kafka = "@format {this.s251.host}:9092"
+api_url = "@format http://{this.s251.host}:31000"
+login_url = "@format http://{this.s251.host}:5000/connect/token"
+
+[s199]
+host = "192.168.1.199"
+company_name = 'supercare14'
+company_type = "IndustryType_SH"
+supercare_type = "Standard"  # Professional
+EntCode = "supercare14"
+user = "admin"
+password = "1q2w3E*"
+kafka = "@format {this.s199.host}:9092"
+api_url = "@format http://{this.s199.host}:31000"
+login_url = "@format http://{this.s199.host}:5000/connect/token"
+
+[s61]
+host = "192.168.1.61"
+company_name = '61风电'
+company_type = "IndustryType_FD"
+supercare_type = "Standard"  # Professional
+EntCode = "supercare61fd"
+user = "admin"
+password = "1q2w3E*"
+kafka = "@format {this.s61.host}:9092"
+api_url = "@format http://{this.s61.host}:31000"
+login_url = "@format http://{this.s61.host}:5000/connect/token"
+
+[c138]
+host = "192.168.1.138"
+company_name = '138企业'
+company_type = ''
+supercare_type = "Professional"  # Standard
+EntCode = "Supercare138testall"
+user = "admin"
+password = "1q2w3E*"
+kafka = "@format {this.c138.host}:9092"
+api_url = "@format http://{this.c138.host}:31000"
+login_url = "@format http://{this.c138.host}:5000/connect/token"
