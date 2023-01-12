@@ -487,8 +487,8 @@ class TestDevice:
                 "_t": datetime.now()
             }
             res = Apis().api_device_get_meta_model_by_asset_id(params=params)
-            assert res.status_code <= 200, "Http请求状态码错误"
-            assert json.loads(res.text)['success'], "业务接口返回失败"
+            assert res.status_code <= 200, "获取设备模型,Http请求状态码错误"
+            assert json.loads(res.text)['success'], "获取设备模型,业务接口返回失败"
 
         except Exception as e:
             raise e

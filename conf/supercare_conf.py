@@ -40,6 +40,18 @@ class Environment:
             "api_url": "http://192.168.1.199:31000",
             "login_url": "http://192.168.1.199:5000/connect/token"
         },
+        "single61": {
+            "company_name": '61风电',
+            "company_type": "IndustryType_FD",
+            "supercare_type": "Standard",  # Professional
+            "EntCode": "supercare61fd",
+            "log_level": 'DEBUG',
+            "kafka": '192.168.1.61:9092',
+            "user": "admin",
+            "password": "1q2w3E*",
+            "api_url": "http://192.168.1.61:31000",
+            "login_url": "http://192.168.1.61:5000/connect/token"
+        },
         "cluster138": {
             "company_name": '138企业',
             "company_type": '',
