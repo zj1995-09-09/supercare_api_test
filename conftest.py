@@ -1,26 +1,16 @@
 import os
 import pytest
-from common.request_module import http_request
+
+from common.auth import auth
 from conf.config import settings
 
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env(request):
-    env = getattr(settings, request.config.getoption("--env"))
+    from_env = request.config.getoption("--env")
+    env = getattr(settings, from_env)
+    auth(from_env)  # 设置 cookies
 
-    data = {
-        "grant_type": "password",
-        "client_id": "epm",
-        "client_secret": "secret",
-        "username": env.user,
-        "password": env.password
-    }
-    headers = {
-        "Content-Type": "application/x-www-form-urlencoded"
-    }
-
-    res = http_request(env.login_url, method="post", data=data, headers=headers)
-    os.environ["cookies"] = "{} {}".format(res.json()["token_type"], res.json()["access_token"])
     os.environ["kafka"] = env.kafka
     os.environ["company_name"] = env.company_name
     os.environ["ent_code"] = env.EntCode
