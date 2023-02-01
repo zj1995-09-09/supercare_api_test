@@ -5,7 +5,7 @@ import time
 import pytest
 from datetime import datetime
 from apis.device_management.device_phy_examination.apis_device_pyh_examination import Apis
-from apis.device_management.device_phy_examination.apis_device_pyh_examination import CommonApis as PHY_CommanApis
+from apis.device_management.device_phy_examination.apis_device_pyh_examination import CommonApis as PHY_CommonApis
 from apis.device_management.device_account.apis_device_account import CommonApis
 
 device_id = ""
@@ -49,10 +49,10 @@ def test_phy_dispoable_plan(set_global_data):
 
         res = Apis().api_dispoable_plan(params=params, data=data)
         assert res.status_code <= 200, "Http请求状态码错误"
-        res = PHY_CommanApis().verify_report_exist_with_name(name=report_name)
+        res = PHY_CommonApis().verify_report_exist_with_name(name=report_name)
         assert res, "未查询到对应的体检报告"
 
-        report_info = PHY_CommanApis().get_report_info_with_name(name=report_name)
+        report_info = PHY_CommonApis().get_report_info_with_name(name=report_name)
         assert report_info['pdfFilePath'], "生成的体检报告无pdf文件信息"
 
         set_global_data("report_id", report_info['id'])
@@ -79,7 +79,7 @@ def test_phy_delete_report(get_global_data):
         res = Apis().api_delete_report(params=params)
         assert res.status_code <= 200, "Http请求状态码错误"
 
-        res = PHY_CommanApis().verify_report_exist_with_name(name=report_name)
+        res = PHY_CommonApis().verify_report_exist_with_name(name=report_name)
         assert not res, "未成功删除对应体检报告"
 
     except Exception as e:
