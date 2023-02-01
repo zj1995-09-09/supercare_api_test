@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from apis.base import Base
 from common.tools import retry
-
+from common.define_exception import DException as Exc
 
 class Apis(Base):
     """
@@ -77,6 +77,48 @@ class Apis(Base):
         except Exception as e:
             raise e
 
+    def api_dispoable_plan(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        try:
+
+            self.headers_default = {
+                "Authorization": os.getenv("cookies"),
+                "Content-Type": "application/json"
+            }
+            self.data_default = {}
+            self.params_default = {
+                "_t": datetime.now()
+            }
+            method = "post"
+            url = self.url + "/api/caseService/api/app/physicalExaminationPlan/dispoablePlan"
+            res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+            return res
+        except Exception as e:
+            raise e
+
+    def api_delete_report(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        try:
+
+            self.headers_default = {
+                "Authorization": os.getenv("cookies"),
+            }
+            self.data_default = {}
+            self.params_default = {
+                "_t": datetime.now()
+            }
+            method = "delete"
+            url = self.url + "/api/PhysicalExaminationReport/DeleteReport"
+            res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+            return res
+
+        except Exception as e:
+            raise e
+
 
 class CommonApis(Apis):
     """
@@ -97,3 +139,41 @@ class CommonApis(Apis):
                 pid = i['id']
 
         return pid
+
+    @retry(5, 3)
+    def verify_report_exist_with_name(self, name) -> bool:
+        """
+
+        """
+        params = {
+            "Year": 0,
+            "skipCount": 0,
+            "maxResultCount": 30,
+            "_t": datetime.now()
+        }
+        res = self.api_get_reports(params=params)
+
+        for i in json.loads(res.text)['data']['items']:
+            if i['name'] == name:
+                return True
+
+        raise Exc(f"未查询到name为{name}的报告信息")
+
+    @retry(5, 3)
+    def get_report_info_with_name(self, name) -> dict:
+        """
+
+        """
+        params = {
+            "Year": 0,
+            "skipCount": 0,
+            "maxResultCount": 30,
+            "_t": datetime.now()
+        }
+        res = self.api_get_reports(params=params)
+
+        for i in json.loads(res.text)['data']['items']:
+            if i['name'] == name:
+                return i
+
+        raise Exc(f"未查询到name为{name}的报告信息")
