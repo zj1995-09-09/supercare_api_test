@@ -140,7 +140,7 @@ class CommonApis(Apis):
 
         return pid
 
-    @retry(5, 3)
+    @retry(5, 5)
     def verify_report_exist_with_name(self, name) -> bool:
         """
 
