@@ -5,7 +5,7 @@ from datetime import datetime
 from apis.device_management.device_phy_examination.apis_device_pyh_examination import Apis
 
 
-@pytest.mark.temp
+@pytest.mark.bvt
 @pytest.mark.device
 @pytest.mark.flaky(reruns=3, reruns_delay=3)
 def test_phy_get_reports():
