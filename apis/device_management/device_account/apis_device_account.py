@@ -115,9 +115,9 @@ class Apis(Base):
             raise e
 
     def api_get_devices_and_sub_dev(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),

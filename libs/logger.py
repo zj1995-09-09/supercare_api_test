@@ -6,7 +6,7 @@ import loguru
 import datetime
 from functools import wraps
 
-from conf.config import settings
+from libs.config import settings
 from libs.get_path import GetPath
 
 

@@ -8,10 +8,10 @@ pid = ""
 
 
 def setup():
-    '''
+    """
     根据企业名称获取pid
     :return:
-    '''
+    """
     try:
         global pid
 

@@ -2,7 +2,8 @@ import os
 import pytest
 
 from common.auth import auth
-from conf.config import settings
+from common.global_var import set_var, get_var
+from libs.config import settings
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -19,9 +20,6 @@ def set_env(request):
     os.environ["supercare_type"] = env.supercare_type
 
 
-global_data = {}
-
-
 @pytest.fixture
 def set_global_data():
     """
@@ -30,7 +28,7 @@ def set_global_data():
     """
 
     def _set_global_data(key, value):
-        global_data[key] = value
+        set_var()(key, value)
 
     return _set_global_data
 
@@ -38,12 +36,12 @@ def set_global_data():
 @pytest.fixture
 def get_global_data():
     """
-    从全局变量global_data中取值
+    从全局变量 global_data 中取值
     :return:
     """
 
     def _get_global_data(key):
-        return global_data.get(key)
+        return get_var()(key)
 
     return _get_global_data
 

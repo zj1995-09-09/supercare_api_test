@@ -5,7 +5,7 @@
 import os
 
 from common.request_module import http_request
-from conf.config import settings
+from libs.config import settings
 
 
 def auth(from_env: str):
