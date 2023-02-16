@@ -41,15 +41,7 @@ class Base(object):
                 if "application/json" in headers['Content-Type']:
                     data = json.dumps(data)
 
-            print(f"METHOD:  {method}")
-            print(f"PARAMS:  {params}")
-            print(f"DATA:  {data}")
-            print(f"URL:  {url}")
-            print(f"HEADERS:  {headers}")
-
             res = http_request(url, method, data=data, params=params, headers=headers, )
-
-            # print(f"RESULT:  {res.text}")
 
             return res
 
