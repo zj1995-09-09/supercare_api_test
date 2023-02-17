@@ -1,23 +1,16 @@
-import os
 import pytest
 
-from common.auth import auth
+from common.init_run import set_init_env
 from common.global_var import set_var, get_var
-from libs.config import settings
 
 
 @pytest.fixture(scope="session", autouse=True)
 def set_env(request):
+    """
+    初始化运行所需环境变量
+    """
     from_env = request.config.getoption("--env")
-    env = getattr(settings, from_env)
-    auth(from_env)  # 设置 cookies
-
-    os.environ["kafka"] = env.kafka
-    os.environ["company_name"] = env.company_name
-    os.environ["ent_code"] = env.EntCode
-    os.environ["api_url"] = env.api_url
-    os.environ["company_type"] = env.company_type
-    os.environ["supercare_type"] = env.supercare_type
+    set_init_env.set_os_env(from_env)
 
 
 @pytest.fixture
@@ -44,6 +37,16 @@ def get_global_data():
         return get_var()(key)
 
     return _get_global_data
+
+
+def pytest_collection_modifyitems(items):
+    """
+    测试用例收集完成时，将收集到的item的name和nodeid的中文显示在控制台上
+    :return:
+    """
+    for item in items:
+        item.name = item.name.encode("utf-8").decode("unicode_escape")
+        item._nodeid = item.nodeid.encode("utf-8").decode("unicode_escape")
 
 
 def pytest_addoption(parser):

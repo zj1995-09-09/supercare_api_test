@@ -2,6 +2,9 @@ dynaconf_merge = true
 [common]
 log_level='DEBUG'
 need_notify = 0
+env = "s211"
+
+[temp]
 
 [dingtalk]
 ding_talk_access_token = "efe2868a96046498353009cf7d76903e85a2e6181dd5a754b453c4a50b203525"
