@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Author   : qiuzixuan
 # @Time     : 2023/1/13
-# @Desc     : 登录鉴权
+# @Desc     : 初始化运行所需的一些环境变量
 import os
 
 from common.request_module import http_request
