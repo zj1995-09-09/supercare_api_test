@@ -6,18 +6,15 @@ import os
 from functools import partial
 
 from apis.base import Base
+from libs.logger import logger
 
 # 接口信息
-# http://192.168.1.61:31000
 GetAlarmTypeAndList = ("POST", "/api/AlarmManageRevision/GetAlarmTypeAndList")
 GetAlarmManageInfo = ("GET", "/api/AlarmManageRevision/GetAlarmManageInfo")
 CloseAlarmEvent = ("POST", "/api/AlarmManageRevision/CloseAlarmEvent")
 
 
 class Apis(Base):
-    """
-    单接口
-    """
 
     def __init__(self):
         super(Apis, self).__init__()
@@ -26,14 +23,23 @@ class Apis(Base):
             {"Authorization": os.getenv("cookies")},
             **{'Content-Type': 'application/json; charset=utf-8'}
         )
+
         self._apis = partial(self.apis, headers=self._headers)
+
+    @staticmethod
+    def create_alarm() -> str:
+        """
+        创建报警
+        :return: 返回报警 ID
+        """
+        return ""
 
     def get_alarm_list(self, data: dict = None) -> dict:
         """
         获取报警列表
         :return: 返回报警列表
         """
-        return self._apis(url=GetAlarmTypeAndList[1], method=GetAlarmTypeAndList[0], data=data).json()
+        return self._apis(path=GetAlarmTypeAndList[1], method=GetAlarmTypeAndList[0], data=data).json()
 
     def get_alarm_manage_info(self, alarm_id: str) -> dict:
         """
@@ -42,7 +48,7 @@ class Apis(Base):
         :return:
         """
         return self._apis(
-            method=GetAlarmManageInfo[0], url=GetAlarmManageInfo[1], params={"id": alarm_id}
+            method=GetAlarmManageInfo[0], path=GetAlarmManageInfo[1], params={"id": alarm_id}
         ).json()
 
     def close_alarm(self, data: dict = None) -> dict:
@@ -55,10 +61,12 @@ class Apis(Base):
         :return:
         """
         return self._apis(
-            method=CloseAlarmEvent[0], url=CloseAlarmEvent[1], data=data
+            method=CloseAlarmEvent[0], path=CloseAlarmEvent[1], data=data
         ).json()
 
 
+alarm_manage_apis = Apis
+
 if __name__ == '__main__':
     api = Apis()
-    print(api.get_alarm_manage_info('58f3d3ac-9405-c665-86e0-83551baac344'))
+    api.get_alarm_list()
