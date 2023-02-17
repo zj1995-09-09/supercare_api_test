@@ -752,7 +752,7 @@ class CommonApis(Apis):
 
 
 if __name__ == '__main__':
-    # from common.init_run import set_init_env
-    # set_init_env('s211').set_os_env()
+    # from common.init_run import set_init
+    # set_init('s211').set_os_env()
     # print(CommonApis().add_measurements())
     print()
