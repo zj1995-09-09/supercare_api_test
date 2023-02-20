@@ -6,6 +6,8 @@
 
 ```pip install -r requirements.txt```
 
+## 目录结构
+
 
 ## Tips
 1. [dynaconf](https://www.dynaconf.com) is used to manage the environment variables

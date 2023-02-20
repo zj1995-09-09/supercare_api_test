@@ -679,7 +679,7 @@ class CommonApis(Apis):
         except Exception:
             raise Exc(f"create new device Error!")
 
-    def add_measurements(self):
+    def add_measurements(self) -> tuple:
         """
         添加动态量测点 - 测量定义
         """
@@ -734,7 +734,7 @@ class CommonApis(Apis):
         measure_res = self.api_measure_add_batch_asset(data=measure_data, params={"_t": datetime.now()}).json()
         _measure_id = measure_res["data"]["measurements"][0]["id"]
 
-        return _measure_id
+        return _device_id, _point_id, _measure_id
 
     @staticmethod
     def delete_device(device_id):

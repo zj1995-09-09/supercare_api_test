@@ -7,19 +7,22 @@ from datetime import datetime
 
 
 def retry(times=1, wait_time=1):
-    def in_fun(fun):
+    """
+    重试装饰器，也可以用于异常捕获
+    """
+    def in_fun(func):
 
         def testfn(*args, **kwargs):
             count = 1
             while count < times + 1:
                 try:
-                    r = fun(*args, **kwargs)
-                    return r
+                    return func(*args, **kwargs)
                 except Exception as e:
-                    logger.info("Retry Times：{},Retry Reason：{}".format(count, e))
+                    logger.error(f"Whoops! Here's a program exception：{e}")
                     time.sleep(wait_time)
                     count += 1
-            logger.error("Retry More than %s Times!" % times)
+            if times > 1:
+                logger.error("Retry More than %s Times!" % times)
             return False
 
         return testfn
@@ -53,3 +56,7 @@ def random_str(length: int = 16):
     import random
     import string
     return ''.join(random.sample(string.ascii_letters + string.digits, length))
+
+
+if __name__ == '__main__':
+    pass
