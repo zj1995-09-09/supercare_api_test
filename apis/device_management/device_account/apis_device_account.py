@@ -609,8 +609,9 @@ class CommonApis(Apis):
         :return:
         """
         try:
+            _random_str = random_str()
             headers = {
-                "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=random_str())
+                "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=_random_str)
             }
 
             file = r"{}\files\设备图片.png".format(os.getcwd())
@@ -622,7 +623,7 @@ class CommonApis(Apis):
             fields = MultipartEncoder(
                 fields={"formFiles": ("{}".format(filename), open(r"{}".format(file), "rb"), r)},
                 # 新接口为formFiles，老接口为：formFile
-                boundary="----WebKitFormBoundary{}".format(random_str)
+                boundary="----WebKitFormBoundary{}".format(_random_str)
             )
 
             params = {
