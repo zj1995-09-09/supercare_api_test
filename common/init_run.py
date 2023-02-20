@@ -52,6 +52,9 @@ class InitRun:
         os.environ["supercare_type"] = self._env.supercare_type
 
 
+set_init = InitRun
+
+
 if __name__ == '__main__':
     # set_init("s211").set_os_env()
     print(settings.s211.cookies)
