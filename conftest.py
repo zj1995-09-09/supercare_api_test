@@ -2,7 +2,7 @@ import time
 
 import pytest
 
-from common.init_run import set_init
+from common.init_run import InitRun
 from common.global_var import set_var, get_var
 
 
@@ -12,7 +12,8 @@ def set_env(request):
     初始化运行所需环境变量
     """
     from_env = request.config.getoption("--env")
-    set_init.set_os_env(from_env)
+    set_init = InitRun(from_env=from_env)
+    set_init.set_os_env()
 
 
 @pytest.fixture
@@ -75,7 +76,6 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
 
     else:
         pass
-
 
 
 def pytest_addoption(parser):
