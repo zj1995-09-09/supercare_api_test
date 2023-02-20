@@ -2,11 +2,10 @@
 
 import json
 import os
-import random
-import string
 from datetime import datetime
 import urllib.parse
 from apis.base import Base
+from common.tools import get_time_suffix, random_str
 from common.tools import get_content_type
 from common.tools import retry
 from common.define_exception import DException as Exc
@@ -23,9 +22,9 @@ class Apis(Base):
         super(Apis, self).__init__()
 
     def api_get_children(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
 
             self.headers_default = {
@@ -90,9 +89,9 @@ class Apis(Base):
             raise e
 
     def api_get_node_list_by_args(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),
@@ -115,9 +114,9 @@ class Apis(Base):
             raise e
 
     def api_get_devices_and_sub_dev(self, data=None, params=None, headers=None):
-        '''
+        """
         :return:
-        '''
+        """
         try:
             self.headers_default = {
                 "Authorization": os.getenv("cookies"),
@@ -162,7 +161,7 @@ class Apis(Base):
         except Exception as e:
             raise e
 
-    def api_by_asset_types(self, data=None, params=None, headers=None):
+    def api_by_asset_types(self, data=None, headers=None):
         """
         获取当前系统所有设备模型
         :return:
@@ -304,9 +303,9 @@ class Apis(Base):
             }
             self.data_default = {}
             self.params_default = {}
-            assetId = params['assetId']
+            asset_id = params['assetId']
 
-            url = self.url + "/api/basicService/api/app/assetPicture/picturesNew/{}".format(assetId)
+            url = self.url + "/api/basicService/api/app/assetPicture/picturesNew/{}".format(asset_id)
             method = "post"
             res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
             return res
@@ -582,7 +581,7 @@ class CommonApis(Apis):
     @retry(5, 3)
     def verify_device_picture_exist(self, device_id):
         """
-        验证对应deivce_id的设备下是否有过上传总貌图，若有，则根据是否为背景图进行返回，True：背景图，false：非背景图
+        验证对应device_id的设备下是否有过上传总貌图，若有，则根据是否为背景图进行返回，True：背景图，false：非背景图
         :param device_id:
         :return:
         """
@@ -610,13 +609,11 @@ class CommonApis(Apis):
         :return:
         """
         try:
-            randomStr = ''.join(random.sample(string.ascii_letters + string.digits, 16))
             headers = {
-                "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=randomStr)
+                "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=random_str())
             }
-            file_path = os.getcwd()
 
-            file = r"{}\files\设备图片.png".format(file_path)
+            file = r"{}\files\设备图片.png".format(os.getcwd())
             filename = file.split("\\")[-1]
             filesize = os.path.getsize(file)
 
@@ -625,7 +622,7 @@ class CommonApis(Apis):
             fields = MultipartEncoder(
                 fields={"formFiles": ("{}".format(filename), open(r"{}".format(file), "rb"), r)},
                 # 新接口为formFiles，老接口为：formFile
-                boundary="----WebKitFormBoundary{}".format(randomStr)
+                boundary="----WebKitFormBoundary{}".format(random_str)
             )
 
             params = {
@@ -636,10 +633,10 @@ class CommonApis(Apis):
             res = Apis().api_device_oss_upload_mulity_file(data=fields, params=params, headers=headers)
             assert res.status_code <= 200, "Http请求状态码错误"
             assert json.loads(res.text)[0]['data']['originalUrl'], "业务接口返回异常，未获取到上传后的存储地址信息."
-            originalUrl = json.loads(res.text)[0]['data']['originalUrl']
+            original_url = json.loads(res.text)[0]['data']['originalUrl']
 
             return {
-                "originalUrl": originalUrl,
+                "originalUrl": original_url,
                 "picture_name": filename,
                 "picture_size": filesize
             }
@@ -682,20 +679,80 @@ class CommonApis(Apis):
         except Exception:
             raise Exc(f"create new device Error!")
 
-    def delete_device(self, device_id):
+    def add_measurements(self) -> tuple:
+        """
+        添加动态量测点 - 测量定义
+        """
+        # 添加设备
+        _device_id = self.add_device()
+
+        # 添加动态量测点
+        point_name = f"动态量-{get_time_suffix()}"
+
+        point_data = {
+            "data": {
+                "monitorMode": 2,  # 离线，在线，第三方在线，第三方离线
+                "name": point_name,
+                "parent": _device_id,
+                "pointType": "0000",
+                "type": 80,
+            },
+            "sign": "post",
+            "AssetType": "Point"
+        }
+
+        point_res = self.api_crud_asset_operator(data=point_data, params={"_t": datetime.now()})
+
+        _point_id = json.loads(point_res.text)['data']['id']
+
+        # 添加测量定义
+        lower_freq = 2
+        upper_freq = 10
+        data_length = 1024
+
+        name = f"{data_length / 1024}k 加速度波形({lower_freq}-{upper_freq})"
+
+        measure_data = {
+            "measurements": [
+                {
+                    "type": 90,
+                    "isDisplayable": True,
+                    "engineerUnitFamily": "Accelerated speed",
+                    "name": name,
+                    "parent": _point_id,
+                    "extraProperties": {
+                        "SignalType": 0,
+                        "LowerFreq": lower_freq,
+                        "UpperFreq": upper_freq,
+                        "DataLength": data_length,
+                        "SamplingMode": 0
+                    }
+                }
+            ]
+        }
+
+        measure_res = self.api_measure_add_batch_asset(data=measure_data, params={"_t": datetime.now()}).json()
+        _measure_id = measure_res["data"]["measurements"][0]["id"]
+
+        return _device_id, _point_id, _measure_id
+
+    @staticmethod
+    def delete_device(device_id):
         """
         删除设备
         """
         try:
-
-            params = {
-                "id": device_id
-            }
-
-            res = Apis().api_del_choice_asset_info(params=params)
+            res = Apis().api_del_choice_asset_info(params={"id": device_id})
             assert res.status_code <= 200, "Http请求状态码错误"
             assert json.loads(res.text)['success'] is True, "业务接口返回False"
             assert json.loads(res.text)['data'] is True, "业务接口返回False"
 
         except Exception as e:
             raise e
+
+
+if __name__ == '__main__':
+    # from common.init_run import set_init
+    # set_init('s211').set_os_env()
+    # print(CommonApis().add_measurements())
+    print()

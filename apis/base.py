@@ -19,7 +19,7 @@ class Base(object):
         self.url = os.getenv("api_url")
 
     @retry(5, 3)
-    def apis(self, data=None, params=None, headers=None, method=None, url=None, ):
+    def apis(self, url=None, data=None, params=None, headers=None, method=None, path=None):
         """
         :return:
         """
@@ -41,15 +41,8 @@ class Base(object):
                 if "application/json" in headers['Content-Type']:
                     data = json.dumps(data)
 
-            print(f"METHOD:  {method}")
-            print(f"PARAMS:  {params}")
-            print(f"DATA:  {data}")
-            print(f"URL:  {url}")
-            print(f"HEADERS:  {headers}")
-
+            url = url if url else os.getenv('api_url') + path
             res = http_request(url, method, data=data, params=params, headers=headers, )
-
-            # print(f"RESULT:  {res.text}")
 
             return res
 

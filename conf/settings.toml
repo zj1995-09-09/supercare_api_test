@@ -1,6 +1,17 @@
 dynaconf_merge = true
 [common]
 log_level='DEBUG'
+need_notify = 0
+env = "s211"
+
+[temp]
+
+[dingtalk]
+ding_talk_access_token = "efe2868a96046498353009cf7d76903e85a2e6181dd5a754b453c4a50b203525"
+ding_talk_path = "/robot/send"
+ding_talk_secret = "SEC440cd3836cce7070cb799dd30ccecea6202aaa97e8685604d8e3959be30ffcbd"
+ding_talk_url = "https://oapi.dingtalk.com"
+test_ding_talk_access_token = "615d66314ccaeab3bb8b056e9bdd5eeb4f575aefe66a0f6e8877f3367e9757eb"
 
 [s211]
 host = "192.168.1.211"
