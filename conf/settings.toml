@@ -63,7 +63,7 @@ login_url = "@format http://{this.s61.host}:5000/connect/token"
 
 [c138]
 host = "192.168.1.138"
-company_name = '138企业'
+company_name = '南钢'
 company_type = ''
 supercare_type = "Professional"  # Standard
 EntCode = "Supercare138testall"
@@ -71,4 +71,4 @@ user = "admin"
 password = "1q2w3E*"
 kafka = "@format {this.c138.host}:9092"
 api_url = "@format http://{this.c138.host}:31000"
-login_url = "@format http://{this.c138.host}:5000/connect/token"
+login_url = "@format http://{this.c138.host}:9999/identityserver/connect/token"

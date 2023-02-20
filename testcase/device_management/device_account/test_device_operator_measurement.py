@@ -21,7 +21,7 @@ def setup():
 
 
 @pytest.mark.device
-@pytest.mark.temp
+@pytest.mark.bvt
 @pytest.mark.run(order=1)
 def test_add_measurement(set_global_data):
     """
@@ -64,7 +64,7 @@ def test_add_measurement(set_global_data):
 
 
 @pytest.mark.device
-@pytest.mark.temp
+@pytest.mark.bvt
 @pytest.mark.run(order=2)
 def test_add_batch_asset(set_global_data, get_global_data):
     """
