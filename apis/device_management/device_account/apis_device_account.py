@@ -614,8 +614,13 @@ class CommonApis(Apis):
                 "Content-Type": "multipart/form-data;boundary=----WebKitFormBoundary{rs}".format(rs=_random_str)
             }
 
-            file = r"{}\files\设备图片.png".format(os.getcwd())
-            filename = file.split("\\")[-1]
+            from libs.get_path import GetPath
+
+            # filename = file.split("\\")[-1]
+            filename = "设备图片.png"
+            file = GetPath('files').get_project_path(filename)
+            # file = r"{}\files\设备图片.png".format(os.getcwd())
+
             filesize = os.path.getsize(file)
 
             r = get_content_type(file)
