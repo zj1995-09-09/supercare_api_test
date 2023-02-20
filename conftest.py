@@ -61,20 +61,20 @@ def pytest_terminal_summary(terminalreporter, exitstatus, config):
         """
     from libs.config import settings
 
-    if settings.common.need_notify:
+    # if settings.common.need_notify:
         # print(f'---------{terminalreporter.stats}-----------')
-        total_case = terminalreporter._numcollected
-        passed_case = len(terminalreporter.stats.get('passed', []))
-        failed_case = len(terminalreporter.stats.get('failed', []))
-        error_case = len(terminalreporter.stats.get('error', []))
-        skipped_case = len(terminalreporter.stats.get('skipped', []))
-        deselected_case = len(terminalreporter.stats.get('deselected', []))
-        duration = time.time() - terminalreporter._sessionstarttime
+    total_case = terminalreporter._numcollected
+    passed_case = len(terminalreporter.stats.get('passed', []))
+    failed_case = len(terminalreporter.stats.get('failed', []))
+    error_case = len(terminalreporter.stats.get('error', []))
+    skipped_case = len(terminalreporter.stats.get('skipped', []))
+    deselected_case = len(terminalreporter.stats.get('deselected', []))
+    duration = time.time() - terminalreporter._sessionstarttime
 
-        terminal_tag = terminalreporter.config.getoption('-m')
+    terminal_tag = terminalreporter.config.getoption('-m')
 
-    else:
-        pass
+    print(f"RESULT>>>{total_case},{passed_case},{error_case}<<<")
+
 
 
 def pytest_addoption(parser):
