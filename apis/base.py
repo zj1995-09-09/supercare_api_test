@@ -1,9 +1,10 @@
 # coding:utf-8
 
 import json
-from common.request_module import http_request
-from common.tools import retry
+from common.api_request import http_request
+from common.api_tools import retry
 import os
+from common.m_exceptions import DException as Exc
 
 
 class Base(object):
@@ -47,4 +48,4 @@ class Base(object):
             return res
 
         except Exception as e:
-            raise e
+            raise f"{url}:接口请求抛出异常：{e}"

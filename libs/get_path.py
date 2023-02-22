@@ -35,4 +35,4 @@ if __name__ == '__main__':
     import datetime
     project_log_filename = 'runtime_{}.log'.format(datetime.date.today())
     a = GetPath('logs').get_project_path(project_log_filename)
-    print(a)
+    print(str(a))

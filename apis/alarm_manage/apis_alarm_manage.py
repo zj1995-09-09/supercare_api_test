@@ -6,7 +6,6 @@ import os
 from functools import partial
 
 from apis.base import Base
-from libs.logger import logger
 
 # 接口信息
 GetAlarmTypeAndList = ("POST", "/api/AlarmManageRevision/GetAlarmTypeAndList")

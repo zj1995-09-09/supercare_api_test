@@ -4,7 +4,7 @@
 # @Desc     : 初始化运行所需的一些环境变量
 import os
 
-from common.request_module import http_request
+from common.api_request import http_request
 from libs.config import settings
 
 

@@ -1,5 +1,5 @@
 # coding:utf-8
-
+import os
 import time
 from loguru import logger
 import mimetypes
@@ -18,11 +18,11 @@ def retry(times=1, wait_time=1):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
-                    logger.error(f"Whoops! Here's a program exception：{e}")
+                    logger.error(f"步骤方法：{func.__name__} 抛出异常：{e}")
                     time.sleep(wait_time)
                     count += 1
             if times > 1:
-                logger.error("Retry More than %s Times!" % times)
+                logger.error("共计重试%s次失败!" % times)
             return False
 
         return testfn
@@ -56,7 +56,3 @@ def random_str(length: int = 16):
     import random
     import string
     return ''.join(random.sample(string.ascii_letters + string.digits, length))
-
-
-if __name__ == '__main__':
-    pass
