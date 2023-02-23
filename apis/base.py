@@ -43,6 +43,7 @@ class Base(object):
                     data = json.dumps(data)
 
             url = url if url else os.getenv('api_url') + path
+
             res = http_request(url, method, data=data, params=params, headers=headers, )
 
             return res

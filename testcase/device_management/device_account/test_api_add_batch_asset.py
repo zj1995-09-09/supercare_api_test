@@ -59,7 +59,7 @@ class TestAddBatchAsset:
 
         self.point_id = steps().add_asset(data=data)
 
-    @pytest.mark.device
+    @pytest.mark.bvt
     @pytest.mark.single
     def test_add_batch_asset(self):
         """

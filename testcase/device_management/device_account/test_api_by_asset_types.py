@@ -14,7 +14,7 @@ def test_by_asset_types():
         "_t": datetime.now(),
     }
 
-    res = Apis().api_by_asset_types(params=params)
+    res = Apis().api_by_asset_types(params=params, url_params="assetTypes=40&assetTypes=50")
     assert res.status_code <= 400, "Http请求状态码错误"
     assert len(json.loads(res.text)) > 0, "业务接口返回类型数量为零"
 

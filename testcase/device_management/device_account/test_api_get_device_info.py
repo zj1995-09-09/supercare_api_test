@@ -1,11 +1,14 @@
 # coding:utf-8
 import json
-import pytest
 import os
-from testcase.device_management.device_account_steps import ApisUtils as steps
+
+import pytest
 from common import api_tools
+from testcase.device_management.device_account_steps import ApisUtils as steps
+
 
 def setup():
+
     # 预置创建设备资产
     suffix = api_tools.random_str(6)
     device_name = f"接口自动化测试-{suffix}"
@@ -35,14 +38,13 @@ def setup():
 
 @pytest.mark.bvt
 @pytest.mark.single
-def test_upload_pictures(get_global_data):
-    file = r"{}\files\设备图片.png".format(os.getcwd())
-    device_id = get_global_data("device_id")
+def test_get_device_info(get_global_data):
+    """
+    获取设备详细位置信息
+    """
+    device_id = get_global_data('device_id')
+    steps().get_device_detail_info(device_id=device_id)
 
-    steps().upload_device_pictures(file, device_id)
-
-    res = steps().get_device_general_view(device_id)
-    assert json.loads(res.text)[0]['attachment']['address'], "设备上传总览图后，未查询到相关的总览图地址"
 
 def teardown():
     device_id = os.environ["device_id"]

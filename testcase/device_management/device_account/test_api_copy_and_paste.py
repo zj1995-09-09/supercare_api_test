@@ -1,11 +1,14 @@
 # coding:utf-8
 import json
-import pytest
 import os
-from testcase.device_management.device_account_steps import ApisUtils as steps
+
+import pytest
 from common import api_tools
+from testcase.device_management.device_account_steps import ApisUtils as steps
+
 
 def setup():
+
     # 预置创建设备资产
     suffix = api_tools.random_str(6)
     device_name = f"接口自动化测试-{suffix}"
@@ -32,18 +35,28 @@ def setup():
     device_id = steps().add_asset(data=data)
     os.environ["device_id"] = device_id
 
+    company_id = steps().get_company_id_with_company_name()
+    os.environ["company_id"] = company_id
+
 
 @pytest.mark.bvt
 @pytest.mark.single
-def test_upload_pictures(get_global_data):
-    file = r"{}\files\设备图片.png".format(os.getcwd())
-    device_id = get_global_data("device_id")
+def test_copy_and_paste(set_global_data, get_global_data):
+    """
+    获取设备详细位置信息
+    """
+    device_id = get_global_data('device_id')
+    company_id = get_global_data('company_id')
+    target_id = steps().copy_paste_asset(source_id=device_id, target_id=company_id)
 
-    steps().upload_device_pictures(file, device_id)
+    set_global_data("target_id", target_id)
 
-    res = steps().get_device_general_view(device_id)
-    assert json.loads(res.text)[0]['attachment']['address'], "设备上传总览图后，未查询到相关的总览图地址"
+    res = steps().get_device_detail_info(target_id)
+    assert json.loads(res.text)['success'] is True, "复制粘贴后的设备无法查询到"
+
 
 def teardown():
     device_id = os.environ["device_id"]
+    target_id = os.environ["target_id"]
     steps().delete_asset(device_id)
+    steps().delete_asset(target_id)

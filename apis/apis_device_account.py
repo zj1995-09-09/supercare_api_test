@@ -1,16 +1,9 @@
 # coding:utf-8
 
-import json
 import os
 from datetime import datetime
 import urllib.parse
 from apis.base import Base
-from common.api_tools import get_time_suffix, random_str
-from common.api_tools import get_content_type
-from common.api_tools import retry
-from requests_toolbelt import MultipartEncoder
-
-from common.m_log_levels import logger
 
 
 class Apis(Base):
@@ -143,9 +136,9 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-
-    def api_by_asset_types(self, data=None, params=None, headers=None):
+    def api_by_asset_types(self, data=None, params=None, headers=None, url_params=None):
         """
+        这个url_params防止相同key的入参
         获取当前系统所有设备模型
         :return:
         """
@@ -156,7 +149,11 @@ class Apis(Base):
         self.params_default = {
             "_t": datetime.now(),
         }
-        url = self.url + "/api/basicService/api/app/deviceCategory/byAssetTypes?assetTypes=40&assetTypes=50&"
+
+        if url_params:
+            url = self.url + "/api/basicService/api/app/deviceCategory/byAssetTypes?" + url_params
+        else:
+            url = self.url + "/api/basicService/api/app/deviceCategory/byAssetTypes"
         params = {
             "_t": datetime.now()
         }
@@ -363,7 +360,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_device_get_device_parts_by_device_id(self, data=None, params=None, headers=None):
+    def api_get_device_parts_by_device_id(self, data=None, params=None, headers=None):
         """
         :return:
         """
@@ -420,6 +417,38 @@ class Apis(Base):
         self.params_default = {}
 
         url = self.url + "/api/Asset/AddBatchAsset"
+        method = "post"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_add_device_parts(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Content-Type": "application/json",
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/DeviceParts/AddDeviceParts"
+        method = "post"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_delete_range_device_parts(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Content-Type": "application/json",
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/DeviceParts/DeleteRangeDeviceParts"
         method = "post"
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
