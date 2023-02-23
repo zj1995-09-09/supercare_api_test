@@ -13,6 +13,7 @@ class TestCrudAssetOperator:
         self.company_id = steps().get_company_id_with_company_name()
         self.device_type_code = steps().get_devices_classify()
 
+    # 如下用例可以再添加一个dependency，防止部分引用的steps失败导致错误
     @pytest.mark.bvt
     @pytest.mark.single
     @pytest.mark.flaky(reruns=3, reruns_delay=3)

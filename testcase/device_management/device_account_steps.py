@@ -67,6 +67,7 @@ class ApisUtils(Apis):
         assert json.loads(res.text)['success'] is True, "删除资源业务接口返回False"
         assert json.loads(res.text)['data'] is True, "删除资源业务接口返回False"
 
+    @retry(5, 3)
     def add_device(self, pid=None, device_type_code=None, **kwargs):
         """
         某资产[pid]下新建设备,默认pid为当前企业，设备分类为'默认分类',可传其他特殊参数
