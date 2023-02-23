@@ -218,7 +218,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_device_get_asset_pictures_filter(self, data=None, params=None, headers=None):
+    def api_get_asset_pictures_filter(self, data=None, params=None, headers=None):
         """
         获取设备总貌图（背景图）
         :return:
@@ -234,7 +234,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_device_oss_upload_mulity_file(self, data=None, params=None, headers=None):
+    def api_upload_mulity_file(self, data=None, params=None, headers=None):
         """
         上传总览图（背景图）
         :return:
@@ -250,7 +250,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_device_asset_picture_new(self, data=None, params=None, headers=None):
+    def api_pictures_new(self, data=None, params=None, headers=None):
         """
         获取设备总貌图（背景图）
         :return:
@@ -267,7 +267,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_device_set_background_picture(self, data=None, params=None, headers=None):
+    def api_set_background_picture(self, data=None, params=None, headers=None):
         """
         获取设备总貌图（背景图）
         :return:
@@ -378,7 +378,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_measure_get_measurement_group(self, data=None, params=None, headers=None):
+    def api_get_measurement_group(self, data=None, params=None, headers=None):
         """
         :return:
         """
@@ -393,7 +393,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_measure_get_model_templates_by_type(self, data=None, params=None, headers=None):
+    def api_model_templates_by_type(self, data=None, params=None, headers=None):
         """
         :return:
         """
@@ -408,7 +408,7 @@ class Apis(Base):
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
 
-    def api_measure_add_batch_asset(self, data=None, params=None, headers=None):
+    def api_add_batch_asset(self, data=None, params=None, headers=None):
         """
         :return:
         """

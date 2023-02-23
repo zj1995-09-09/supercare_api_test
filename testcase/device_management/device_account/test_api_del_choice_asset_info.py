@@ -1,6 +1,7 @@
 # coding: utf-8
 import pytest
 import json
+from common import api_tools
 from apis.apis_device_account import Apis
 from testcase.device_management.device_account_steps import ApisUtils as steps
 
@@ -8,7 +9,31 @@ from testcase.device_management.device_account_steps import ApisUtils as steps
 class TestDelChoiceAssetInfo:
 
     def setup_class(self,):
-        self.device_id = steps().add_device()
+
+        # 预置创建设备资产
+        suffix = api_tools.random_str(6)
+        device_name = f"接口自动化测试-{suffix}"
+        asset_type = 40
+        pid = steps().get_company_id_with_company_name()
+        category = steps().get_devices_classify()
+
+        data = {
+            "data": {
+                "monitorMode": 2,
+                "name": device_name,
+                "category": category,
+                "partNameplates": [{"name": "Gearbox"}, {"name": "Alternator"}, {"name": "MainBearing"}],
+                "extraProperties": {},
+                "responsibleUserIds": [],
+                "deviceType": "",
+                "type": asset_type,
+                "parent": pid
+            },
+            "sign": "post",
+            "AssetType": "Device"
+        }
+
+        self.device_id = steps().add_asset(data=data)
 
     @pytest.mark.bvt
     @pytest.mark.single

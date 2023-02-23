@@ -9,7 +9,7 @@ import os
 @pytest.fixture
 def set_global_data():
     """
-    此处使用os的环境变量，用于关联参数
+    此处使用os环境变量，用于关联参数
     :return:
     """
     def _set_global_data(key, value):
@@ -21,7 +21,7 @@ def set_global_data():
 @pytest.fixture
 def get_global_data():
     """
-    从全局变量global_data中取值
+    从os环境变量中取值
     :return:
     """
     def _get_global_data(key):
