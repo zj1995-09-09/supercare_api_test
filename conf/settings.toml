@@ -39,8 +39,8 @@ login_url = "@format http://{this.s251.host}:5000/connect/token"
 
 [s199]
 host = "192.168.1.199"
-company_name = 'supercare14'
-company_type = "IndustryType_SH"
+company_name = '叶片测试'
+company_type = "IndustryType_FD"
 supercare_type = "Standard"  # Professional
 EntCode = "supercare14"
 user = "admin"
@@ -51,7 +51,7 @@ login_url = "@format http://{this.s199.host}:5000/connect/token"
 
 [s61]
 host = "192.168.1.61"
-company_name = '61风电'
+company_name = 'Root1'
 company_type = "IndustryType_FD"
 supercare_type = "Standard"  # Professional
 EntCode = "supercare61fd"

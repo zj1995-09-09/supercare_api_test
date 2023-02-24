@@ -452,3 +452,108 @@ class Apis(Base):
         method = "post"
         res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
         return res
+
+    def api_diagnosis(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/alarmService/api/app/alarmStatistics/diagnosis"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_fault_type_datas_by_device_type(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/basicService/api/app/newFaultComponentType/faultTypeDatasByDeviceType"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_fault_types(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/basicService/api/app/faultTypes"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_device_categories(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/basicService/api/app/deviceCategories"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_device_resume_actions(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/basicService/api/app/deviceResume/actions"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_get_spot_check_reason_type(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/AlarmManage/GetSpotCheckReasonType"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res
+
+    def api_device_resume(self, data=None, params=None, headers=None):
+        """
+        :return:
+        """
+        self.headers_default = {
+            "Authorization": os.getenv("cookies"),
+        }
+        self.data_default = {}
+        self.params_default = {}
+
+        url = self.url + "/api/basicService/api/app/deviceResume"
+        method = "get"
+        res = self.apis(data=data, params=params, headers=headers, method=method, url=url)
+        return res

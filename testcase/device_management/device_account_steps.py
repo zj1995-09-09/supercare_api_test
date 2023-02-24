@@ -1,11 +1,12 @@
 # coding: utf-8
 import os
-from apis.apis_device_account import Apis
+from apis.device_management.apis_device_account import Apis
 from common.api_tools import retry, random_str, get_content_type
 import json
 from datetime import datetime
 from requests_toolbelt import MultipartEncoder
 import time
+
 
 class ApisUtils(Apis):
     """
@@ -359,7 +360,49 @@ class ApisUtils(Apis):
         assert res.status_code <= 400, "删除设备部件Http请求状态码错误"
         assert json.loads(res.text)['success'] is True, "删除设备部件业务接口返回False"
 
+    @retry(3, 5)
+    def device_categories(self, device_id):
+        """
+        查看设备的诊断记录
+        """
 
+        params = {
+            "assetTypes": 70,
+            "_t": datetime.now(),
+        }
+
+        res = self.api_device_categories(params=params)
+        assert res.status_code <= 400, "获取设备类别Http请求状态码错误"
+        assert len(json.loads(res.text)['items']) > 0, "获取的设备类别数量为空"
+
+        params = {
+            "_t": datetime.now(),
+        }
+
+        res = self.api_fault_type_datas_by_device_type(params=params)
+        assert res.status_code <= 400, "[api_fault_type_datas_by_device_type]获取设备异常类型Http请求状态码错误"
+        assert len(json.loads(res.text)) > 0, "[api_fault_type_datas_by_device_type]获取设备异常类型数量为空"
+
+        params = {
+            "_t": datetime.now(),
+        }
+        res = self.api_fault_types(params=params)
+        assert res.status_code <= 400, "[api_fault_types]获取设备异常类型Http请求状态码错误"
+        assert len(json.loads(res.text)) > 0, "[api_fault_types]获取设备异常类型数量为空"
+
+        params = {
+            "maxResultCount": 5000,
+            "skipCount": 0,
+            "AssetId": device_id,
+            "StartTime": "2023/01/01 00:00:00",
+            "EndTime": "2023/02/24 23:59:59",
+            "_t": datetime.now(),
+        }
+
+        res = self.api_diagnosis(params=params,)
+        assert res.status_code <= 400, "获取诊断记录Http请求状态码错误"
+
+        return res
 
 
 if __name__ == "__main__":

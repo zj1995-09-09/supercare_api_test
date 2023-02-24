@@ -2,7 +2,7 @@
 import pytest
 import json
 from common import api_tools
-from apis.apis_device_account import Apis
+from apis.device_management.apis_device_account import Apis
 from testcase.device_management.device_account_steps import ApisUtils as steps
 
 

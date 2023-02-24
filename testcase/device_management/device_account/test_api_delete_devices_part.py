@@ -58,6 +58,6 @@ def test_delete_devices_part(get_global_data):
     assert res not in [i['Id'] for i in res_get_parts_list], f"{device_id}下创建{res}后，未成功删除对应设备部件"
 
 
-# def teardown():
-#     device_id = os.environ["device_id"]
-#     steps().delete_asset(device_id)
+def teardown():
+    device_id = os.environ["device_id"]
+    steps().delete_asset(device_id)

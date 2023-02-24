@@ -1,7 +1,7 @@
 # coding: utf-8
 import json
 import pytest
-from apis.apis_device_account import Apis
+from apis.device_management.apis_device_account import Apis
 from datetime import datetime
 
 
