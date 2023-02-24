@@ -9,7 +9,7 @@
 ## Tips
 1. [dynaconf](https://www.dynaconf.com) is used to manage the environment variables
 
-当前Supercare业务测试不适用数据驱动的方式去验证接口，因此前期主要关注的是业务逻辑这块，编写用例时无需对入参这块做过多测试验证
+当前Supercare业务测试不适用数据驱动的方式去验证接口，因此前期主要关注的是业务逻辑这块，编写用例时无需对入参这块做过多测试验证，采用关键字驱动做验证
 
 ### **测试用例接口定义规范：**
 
